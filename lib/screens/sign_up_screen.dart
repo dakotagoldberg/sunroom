@@ -31,6 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         final userInfo = <String, dynamic>{
           "name": _nameController.text,
           "id": user!.uid,
+          "activeSessionId": '',
         };
         db
             .collection("users")

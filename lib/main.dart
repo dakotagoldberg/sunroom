@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Sunroom',
       theme: ThemeData(
         useMaterial3: true,
+        scaffoldBackgroundColor: Color(0xFFFFF3F6),
       ),
       home: _isLoggedIn
           ? BottomTabs(
