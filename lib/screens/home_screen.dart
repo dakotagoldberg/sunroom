@@ -197,7 +197,7 @@ class TimeTracker extends StatefulWidget {
 
 class _TimeTrackerState extends State<TimeTracker> {
   Timer? timer;
-  DateTime now = DateTime.now();
+  DateTime now = DateTime.now().subtract(const Duration(minutes: 7));
 
   void initTimer() {
     if (timer != null && timer!.isActive) return;
@@ -205,7 +205,7 @@ class _TimeTrackerState extends State<TimeTracker> {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       //job
       setState(() {
-        now = DateTime.now();
+        now = DateTime.now().subtract(const Duration(minutes: 7));
       });
     });
   }

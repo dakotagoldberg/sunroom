@@ -7,7 +7,9 @@ import 'package:iconify_flutter/icons/bx.dart';
 
 class MoodKeywordSummary extends StatelessWidget {
   final String emotion;
-  const MoodKeywordSummary({super.key, required this.emotion});
+  final List keywords;
+  const MoodKeywordSummary(
+      {super.key, required this.emotion, required this.keywords});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +53,7 @@ class MoodKeywordSummary extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: KeywordList(
-                keywords: ['Keyword', 'Keyword', 'Keyword', 'Keyword']),
+            child: KeywordList(keywords: keywords),
           )
         ],
       ),
