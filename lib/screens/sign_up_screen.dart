@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<bool> _createAccount() async {
+    FirebaseFirestore db = FirebaseFirestore.instance;
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -26,6 +28,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (user != null) {
           user.updateDisplayName(_nameController.text);
         }
+        final userInfo = <String, dynamic>{
+          "name": _nameController.text,
+          "id": user!.uid,
+        };
+        db
+            .collection("users")
+            .doc(user.uid)
+            .set(userInfo)
+            .onError((e, _) => print("Error writing document: $e"));
       });
 
       return true;
