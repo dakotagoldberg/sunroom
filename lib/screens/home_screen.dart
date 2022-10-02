@@ -1,9 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:sunroom/testing/sample_data.dart';
+import 'package:sunroom/widgets/session_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -49,29 +53,187 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<User?> getCurrentUser() async {
     if (FirebaseAuth.instance.currentUser != null) {
       return FirebaseAuth.instance.currentUser;
+
       // print(FirebaseAuth.instance.currentUser?.uid);
     }
     return null;
   }
 
+  final Stream<DocumentSnapshot> _sessionStream = FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .snapshots();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Column(
-        children: [
-          SizedBox(
-            width: (MediaQuery.of(context).size.width),
-            height: 350,
-            child: const DecoratedBox(
-              decoration: BoxDecoration(
-                color: Color(0xFFFADEE3),
-                borderRadius: BorderRadius.all(Radius.circular(35)),
+        child: Column(
+          children: [
+            SizedBox(
+              width: (MediaQuery.of(context).size.width),
+              height: 400,
+              child: DecoratedBox(
+                decoration: const BoxDecoration(
+                  color: Color(0xFFFADEE3),
+                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 80, 25, 25),
+                    child: StreamBuilder(
+                      stream: _sessionStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Something went wrong');
+                        }
+
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text("Loading");
+                        }
+                        Map<String, dynamic> data =
+                            snapshot.data!.data()! as Map<String, dynamic>;
+                        if (data['activeSessionId'].length != 0) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          colors: [
+                                            Color(0xFFFFA1E3),
+                                            Color(0xFFFF7F55)
+                                          ]),
+                                      // color: Colors.red,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.bolt_rounded,
+                                      color: Color(0xFFFFF3F6),
+                                      size: 32,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const TimeTracker(),
+                              const Text(
+                                'Current Session',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xFF524244),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'End Session',
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    color: Color(0xFFAF5E6D),
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(0),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(0xFFF3C3CC)),
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Text('No Session');
+                        }
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
-          )
-        ],
-      )),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Past Sessions',
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF524244),
+                    fontSize: 22),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView(
+                  children: sample_sessions.map((session) {
+                    return SessionTile(
+                        startTime: session.startTime, endTime: session.endTime);
+                  }).toList(),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TimeTracker extends StatefulWidget {
+  const TimeTracker({super.key});
+
+  @override
+  State<TimeTracker> createState() => _TimeTrackerState();
+}
+
+class _TimeTrackerState extends State<TimeTracker> {
+  Timer? timer;
+  DateTime now = DateTime.now();
+
+  void initTimer() {
+    if (timer != null && timer!.isActive) return;
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      //job
+      setState(() {
+        now = DateTime.now();
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    initTimer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Text(
+          "${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}",
+          style: TextStyle(
+            fontSize: 80,
+            color: Color(0xFF524244),
+          ),
+        ),
+      ),
     );
   }
 }
