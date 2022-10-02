@@ -52,14 +52,16 @@ class SiteTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Site Title',
+                            siteData['title'].substring(0, 15) + '...',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF524244),
                                 fontSize: 22),
+                            // overflow: TextOverflow.ellipsis,
                           ),
                           Text(
-                            'Time Duration',
+                            (siteData['duration'] / 1000).toString() +
+                                ' seconds',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFF9C8084),

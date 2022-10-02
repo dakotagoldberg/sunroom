@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter/icons/bx.dart';
 import 'package:sunroom/widgets/keyword_list.dart';
 import 'package:sunroom/widgets/mood_keyword_summary.dart';
 
@@ -12,9 +13,18 @@ class ExploreScreen extends StatelessWidget {
         padding: const EdgeInsets.all(25),
         child: ListView(
           children: [
-            MoodKeywordSummary(),
-            MoodKeywordSummary(),
-            MoodKeywordSummary(),
+            MoodKeywordSummary(
+              emotion: Bx.bxs_happy_beaming,
+            ),
+            MoodKeywordSummary(
+              emotion: Bx.bxs_happy,
+            ),
+            MoodKeywordSummary(
+              emotion: Bx.bxs_sad,
+            ),
+            MoodKeywordSummary(
+              emotion: Bx.bxs_tired,
+            ),
           ],
         ),
       ),

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:sunroom/widgets/keyword_list.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bx.dart';
 
 class MoodKeywordSummary extends StatelessWidget {
-  const MoodKeywordSummary({super.key});
+  final String emotion;
+  const MoodKeywordSummary({super.key, required this.emotion});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,8 @@ class MoodKeywordSummary extends StatelessWidget {
                         // color: Colors.red,
                         borderRadius: BorderRadius.all(Radius.circular(12))),
                     child: Center(
-                      child: Icon(
-                        Icons.emoji_emotions_rounded,
+                      child: Iconify(
+                        emotion,
                         color: Color(0xFFFFF3F6),
                         size: 32,
                       ),

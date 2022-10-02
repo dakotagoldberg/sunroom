@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sunroom/testing/sample_data.dart';
 import 'package:sunroom/widgets/keyword_list.dart';
 import 'package:sunroom/widgets/mood_cluster.dart';
 import 'package:sunroom/widgets/session_list.dart';
@@ -11,6 +14,7 @@ class SessionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as SessionArguments;
+    List session = example_session;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Color(0xFF524244)),
@@ -34,13 +38,9 @@ class SessionScreen extends StatelessWidget {
                   color: Color(0xFF524244),
                   fontSize: 24),
             ),
-            KeywordList(keywords: [
-              'Photography',
-              '35mm Film',
-              'Lightroom',
-              'Color Gradiung',
-              'Adobe Photoshop'
-            ]),
+            KeywordList(
+                keywords: parseKeywords(args.session.sites).sublist(
+                    0, min(5, parseKeywords(args.session.sites).length - 1))),
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Text(
@@ -67,7 +67,7 @@ class SessionScreen extends StatelessWidget {
               ),
             ),
             Column(
-              children: ['hi', 'b'].map((site) {
+              children: args.session.sites.map((site) {
                 return SiteTile(siteData: site);
               }).toList(),
             )
@@ -76,4 +76,12 @@ class SessionScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+List parseKeywords(sessions) {
+  List keywords = [];
+  sessions.forEach((session) {
+    keywords.addAll(session['tags']);
+  });
+  return keywords;
 }
