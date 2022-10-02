@@ -155,7 +155,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return Text('No Session');
+                          return Text('No Current Session',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF524244),
+                                  fontSize: 24));
                         }
                       },
                     ),

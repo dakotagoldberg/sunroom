@@ -24,20 +24,51 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Welcome To Sunroom'),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInScreen()));
-              },
-              child: const Text('Log In'),
+            const Text('Welcome To Sunroom',
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF524244),
+                    fontSize: 24)),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LogInScreen()));
+                },
+                child: Text(
+                  'Log In',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Color(0xFFAF5E6D),
+                  ),
+                ),
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFF3C3CC)),
+                  overlayColor: MaterialStateProperty.all(
+                      Color.fromARGB(50, 255, 255, 255)),
+                ),
+              ),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SignUpScreen()));
               },
-              child: const Text('Sign Up'),
+              child: Text(
+                'Sign Up',
+                style: TextStyle(
+                  fontSize: 22,
+                  color: Color(0xFFAF5E6D),
+                ),
+              ),
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                backgroundColor: MaterialStateProperty.all(Color(0xFFF3C3CC)),
+                overlayColor: MaterialStateProperty.all(
+                    Color.fromARGB(50, 255, 255, 255)),
+              ),
             ),
           ],
         ),
