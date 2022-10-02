@@ -61,6 +61,15 @@ class _BottomTabsState extends State<BottomTabs> {
             onTap: _onItemTapped,
             showSelectedLabels: false,
             showUnselectedLabels: false,
+            backgroundColor: Color(0xFFFFF3F6),
+            selectedIconTheme: const IconThemeData(
+              size: 34,
+              color: Color(0xFFFF909C),
+            ),
+            unselectedIconTheme: const IconThemeData(
+              size: 28,
+              color: Color(0xFFD8C1C4),
+            ),
           ),
         ));
   }

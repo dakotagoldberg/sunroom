@@ -34,13 +34,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
               future: getCurrentUser(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Text(snapshot.data!.displayName ?? '');
+                  return Text(
+                    snapshot.data!.displayName ?? '',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF524244),
+                        fontSize: 24),
+                  );
                 }
                 return const Text('');
               },
             ),
-            ElevatedButton(
-                onPressed: () => signOut(), child: const Text('Log Out')),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () => signOut(),
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    fontSize: 22,
+                    color: Color(0xFFAF5E6D),
+                  ),
+                ),
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  backgroundColor: MaterialStateProperty.all(Color(0xFFF3C3CC)),
+                  overlayColor: MaterialStateProperty.all(
+                      Color.fromARGB(50, 255, 255, 255)),
+                ),
+              ),
+            ),
+            // ElevatedButton(
+            //     onPressed: () => signOut(), child: const Text('Log Out')),
           ],
         ),
       ),

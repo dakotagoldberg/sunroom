@@ -25,4 +25,44 @@ List<Session> sample_sessions = [
         .toIso8601String(),
     sites: [],
   ),
+  Session(
+    startTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .toIso8601String(),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .add(const Duration(minutes: 20, seconds: 44))
+        .toIso8601String(),
+    sites: [],
+  ),
+  Session(
+    startTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .toIso8601String(),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .add(const Duration(minutes: 20, seconds: 44))
+        .toIso8601String(),
+    sites: [],
+  ),
+  Session(
+    startTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .toIso8601String(),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .add(const Duration(minutes: 20, seconds: 44))
+        .toIso8601String(),
+    sites: [],
+  ),
+  Session(
+    startTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .toIso8601String(),
+    endTime: DateTime.now()
+        .subtract(const Duration(days: 1, hours: 34, minutes: 20, seconds: 44))
+        .add(const Duration(minutes: 20, seconds: 44))
+        .toIso8601String(),
+    sites: [],
+  ),
 ];

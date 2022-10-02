@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SessionTile extends StatelessWidget {
-  final String startTime;
-  final String endTime;
-  const SessionTile({
+class SiteTile extends StatelessWidget {
+  final siteData;
+  const SiteTile({
     super.key,
-    required this.startTime,
-    required this.endTime,
+    required this.siteData,
   });
 
   @override
@@ -40,7 +38,7 @@ class SessionTile extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(12))),
                         child: Center(
                           child: Icon(
-                            Icons.emoji_emotions_rounded,
+                            Icons.share_location_rounded,
                             color: Color(0xFFFFF3F6),
                             size: 32,
                           ),
@@ -54,18 +52,14 @@ class SessionTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            DateFormat('MMMM d, yyyy')
-                                .format(DateTime.parse(startTime)),
+                            'Site Title',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF524244),
                                 fontSize: 22),
                           ),
                           Text(
-                            DateFormat('jm').format(DateTime.parse(startTime)) +
-                                ' - ' +
-                                DateFormat('jm')
-                                    .format(DateTime.parse(endTime)),
+                            'Time Duration',
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFF9C8084),
@@ -76,10 +70,10 @@ class SessionTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: Color(0xFF524244),
-                )
+                // Icon(
+                //   Icons.arrow_forward_ios_rounded,
+                //   color: Color(0xFF524244),
+                // )
               ],
             ),
           ),

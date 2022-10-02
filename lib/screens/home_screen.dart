@@ -7,6 +7,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sunroom/testing/sample_data.dart';
+import 'package:sunroom/widgets/session_list.dart';
 import 'package:sunroom/widgets/session_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -147,6 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   elevation: MaterialStateProperty.all(0),
                                   backgroundColor: MaterialStateProperty.all(
                                       Color(0xFFF3C3CC)),
+                                  overlayColor: MaterialStateProperty.all(
+                                      Color.fromARGB(50, 255, 255, 255)),
                                 ),
                               ),
                             ],
@@ -162,25 +165,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Past Sessions',
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF524244),
-                    fontSize: 22),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: ListView(
-                  children: sample_sessions.map((session) {
-                    return SessionTile(
-                        startTime: session.startTime, endTime: session.endTime);
-                  }).toList(),
+              child: const Padding(
+                padding: EdgeInsets.only(top: 30, bottom: 8, left: 26),
+                child: Text(
+                  'Past Sessions',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF524244),
+                      fontSize: 24),
                 ),
               ),
-            )
+            ),
+            SessionList(sessions: sample_sessions)
           ],
         ),
       ),
